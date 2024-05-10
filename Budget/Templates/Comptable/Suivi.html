@@ -1,0 +1,106 @@
+{% extends "../master.html" %}
+
+{% block title %}Comptable suivi budget{% endblock  %}
+
+{% comment %} SIDEBAR {% endcomment %}
+{% block sidebar %}
+<a href="#" class="brand">
+    <i class='bx bxs-smile'></i>
+    <span class="text">BudgetApp</span>
+</a>
+<ul class="side-menu top">
+    <li>
+        <a href="comptaIndex">
+            <i class='bx bxs-dashboard' ></i>
+            <span class="text">Acceuil</span>
+        </a>
+    </li>
+    <li>
+        <a href="comptaSaisie">
+            <i class='bx bxs-edit' ></i>
+            <span class="text">Saisie budget</span>
+        </a>
+    </li>
+    <li class="active">
+        <a href="comptaSuivi">
+            <i class='bx bxs-bank' ></i>
+            <span class="text">Suivi des budget</span>
+        </a>
+    </li>
+    <li>
+        <a href="comptaStatistique">
+            <i class='bx bxs-doughnut-chart' ></i>
+            <span class="text">Statistique</span>
+        </a>
+    </li>
+</ul>
+<ul class="side-menu">
+    <li>
+        <a href="Settings.html">
+            <i class='bx bxs-cog' ></i>
+            <span class="text">Parametre</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'deconnexion' %}" class="logout">
+            <i class='bx bxs-log-out-circle' ></i>
+            <span class="text">Deconnexion</span>
+        </a>
+    </li>
+</ul>
+{% endblock  %}
+
+
+{% comment %} Navbar head {% endcomment %}
+{% block navbarhead %}
+<a class="active" href="comptaSuivi">Suivi des budgets</a>
+{% endblock  %}
+
+{% comment %} BUDGET {% endcomment %}
+{% block budgetTotal %}
+{{ total_montant }}
+{% endblock  %}
+
+{% block balance %}
+{{ total_depense }}
+{% endblock  %}
+
+{% block solde %}
+{{ solde }}
+{% endblock  %}
+
+{% comment %} Content {% endcomment %}
+{% block content %}
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <div class="container">
+                <h2 class="majuscule">suivi des dépenses</h2>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Nom de la rubrique</th>
+                      <th>Ligne Budgetaire</th>
+                      <th>Date</th>
+                      <th>Heure</th>
+                      <th>Montant</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for depenses in depense %}
+                    <tr>
+                        <td>{{depenses.rubrique}}</td>
+                        <td>{{depenses.ligne}}</td>
+                        <td>{{depenses.date}}</td>
+                        <td>{{depenses.times}}</td>
+                        <td>{{depenses.montant}} MGA</td>
+                    </tr>
+                    {% endfor %}
+                    <!-- Ajoutez d'autres lignes pour plus de transactions -->
+                  </tbody>
+                </table>
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}

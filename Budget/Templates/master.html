@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href="{% static 'assets/node_modules/boxicons/css/boxicons.min.css'%}" rel='stylesheet'>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="{% static 'assets/bootstrap/bootstrap.min.css'%}">
+
+	<!-- My CSS -->
+	<link rel="stylesheet" href="{% static 'assets/style.css'%}">
+
+	{% comment %} AOS ANIMA {% endcomment %}
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+	{% comment %} Chart {% endcomment %}
+	{% comment %} <link rel="stylesheet" href="{% static 'assets/node_modules/chart.js/chart.js'%}"> {% endcomment %}
+	{% comment %} <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> {% endcomment %}
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+	<title>{% block title %}{% endblock  %}</title>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		{% block sidebar %}{% endblock  %}
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+			<a href="#" class="nav-link">Categories</a>
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Budgetaire</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Journal</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							{% block navbarhead %}{% endblock  %}
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-coin-stack' ></i>
+					<span class="text">
+						<h3>{% block budgetTotal %}{% endblock  %} MGA</h3>
+						<p>Budget</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-calculator' ></i>
+					<span class="text">
+						<h3>{% block balance %}{% endblock  %} MGA</h3>
+						<p>Balance</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-dollar-circle' ></i>
+					<span class="text">
+						<h3>{% block solde %}{% endblock  %} MGA</h3>
+						<p>Solde</p>
+					</span>
+				</li>
+			</ul>
+
+			{% block content %}{% endblock  %}
+			</div>			
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->  
+	<script src="{% static 'assets/script.js'%}"></script>
+	{% comment %} <script src="{% static 'assets/chart.js'%}"></script> {% endcomment %}
+	<script src="{% static 'assets/bootstrap/bootstrap.min.js'%}"></script>
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+		AOS.init();
+
+		function confirmDelete() {
+			if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
+				document.getElementById("deleteForm").submit();
+			} else {
+				// L'utilisateur a annulé, rien ne se passe.
+			}
+		}
+
+		function confirmDeleteDepense() {
+			if (confirm("Êtes-vous sûr de vouloir supprimer cette dépense ?")) {
+				document.getElementById("deleteDepenseForm").submit();
+			} else {
+				// L'utilisateur a annulé, rien ne se passe.
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+{% extends "../master.html" %}
+
+{% block title %}Admin acceuil{% endblock  %}
+
+{% comment %} SIDEBAR {% endcomment %}
+{% block sidebar %}
+<a href="#" class="brand">
+    <i class='bx bxs-smile'></i>
+    <span class="text">AdminHub</span>
+</a>
+<ul class="side-menu top">
+    <li class="active">
+        <a href="adminIndex">
+            <i class='bx bxs-dashboard' ></i>
+            <span class="text">Acceuil</span>
+        </a>
+    </li>
+    <li>
+        <a href="adminUser">
+            <i class='bx bxs-user' ></i>
+            <span class="text">Utilisateur</span>
+        </a>
+    </li>
+    <li>
+        <a href="adminSuivi">
+            <i class='bx bxs-bank' ></i>
+            <span class="text">Suivi des budget</span>
+        </a>
+    </li>
+    <li>
+        <a href="adminStatistique">
+            <i class='bx bxs-doughnut-chart' ></i>
+            <span class="text">Statistique</span>
+        </a>
+    </li>
+</ul>
+<ul class="side-menu">
+    <li>
+        <a href="Settings.html">
+            <i class='bx bxs-cog' ></i>
+            <span class="text">Parametre</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'deconnexion' %}" class="logout">
+            <i class='bx bxs-log-out-circle' ></i>
+            <span class="text">Deconnexion</span>
+        </a>
+    </li>
+</ul>
+{% endblock  %}
+
+
+{% comment %} Navbar head {% endcomment %}
+{% block navbarhead %}
+<a class="active" href="adminIndex">Acceuil</a>
+{% endblock  %}
+
+{% comment %} BUDGET {% endcomment %}
+{% block budgetTotal %}
+{{ total_montant }}
+{% endblock  %}
+
+{% block balance %}
+{{ total_depense }}
+{% endblock  %}
+
+{% block solde %}
+{{ solde }}
+{% endblock  %}
+
+{% comment %} Content {% endcomment %}
+{% block content %}
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <div class="container">
+                <h2 class="majuscule">compte de l'administrateur</h2>
+                <table class="table table-condensed">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Pseudo</th>
+                        <th>Contact</th>
+                        <th>Mot de passe</th>
+                        <th>Modifier</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td>{{utilisateur.pseudo}}</td>
+                        <td>{{utilisateur.contact}}</td>
+                        <td>{{utilisateur.mdp}}</td>
+                        <td>
+                            <a href="changeradmin"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" color="#FFC107" style="cursor: pointer;">
+                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                            </svg></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+
+                <h2 class="majuscule">code de validation comptable</h2>
+                <table class="table table-condensed">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Code</th>
+                        <th>Modifier</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for code_valids in code_valid  %}
+                      <tr>
+                        <td></td>
+                        <td>{{code_valids.code}}</td>
+                        <td>
+                            <a href="changercode"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" color="#FFC107" style="cursor: pointer;">
+                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                            </svg></a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <br>
+
+                  <h2 class="majuscule" id="budget">ajouter des budgets</h2>
+                  <a href="changerbudget" class="btn btn-success">Ajouter</a>
+                  <table class="table table-condensed">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Budget</th>
+                        <th>Date</th>
+                        <th>Heure</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for budgets in budget  %}
+                      <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{budgets.budget_initial}}</td>
+                        <td>{{budgets.date_budget}}</td>
+                        <td>{{budgets.time}}</td>
+                        <td>
+                            <a href="{% url "modifebudget" budgets.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" color="#FFC107" style="cursor: pointer;">
+                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                            </svg></a>
+                        </td>
+                        <td>
+                        <form action="{% url 'supprimer_budget' budgets.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" style="border: none; background-color: transparent;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle-fill ms-3" viewBox="0 0 16 16" color="red" style="cursor: pointer;">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                            </svg>
+                        </form>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>			
+{% endblock  %}

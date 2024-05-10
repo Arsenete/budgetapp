@@ -1,0 +1,142 @@
+{% extends "../master.html" %}
+
+{% block title %}Comptable saisie{% endblock  %}
+
+{% comment %} SIDEBAR {% endcomment %}
+{% block sidebar %}
+<a href="#" class="brand">
+    <i class='bx bxs-smile'></i>
+    <span class="text">BudgetApp</span>
+</a>
+<ul class="side-menu top">
+    <li>
+        <a href="comptaIndex">
+            <i class='bx bxs-dashboard' ></i>
+            <span class="text">Acceuil</span>
+        </a>
+    </li>
+    <li class="active">
+        <a href="comptaSaisie">
+            <i class='bx bxs-edit' ></i>
+            <span class="text">Saisie budget</span>
+        </a>
+    </li>
+    <li>
+        <a href="comptaSuivi">
+            <i class='bx bxs-bank' ></i>
+            <span class="text">Suivi des budget</span>
+        </a>
+    </li>
+    <li>
+        <a href="comptaStatistique">
+            <i class='bx bxs-doughnut-chart' ></i>
+            <span class="text">Statistique</span>
+        </a>
+    </li>
+</ul>
+<ul class="side-menu">
+    <li>
+        <a href="Settings.html">
+            <i class='bx bxs-cog' ></i>
+            <span class="text">Parametre</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'deconnexion' %}" class="logout">
+            <i class='bx bxs-log-out-circle' ></i>
+            <span class="text">Deconnexion</span>
+        </a>
+    </li>
+</ul>
+{% endblock  %}
+
+
+{% comment %} Navbar head {% endcomment %}
+{% block navbarhead %}
+<a class="active" href="comptaSaisie">Saisie</a>
+{% endblock  %}
+
+{% comment %} BUDGET {% endcomment %}
+{% block budgetTotal %}
+{{ total_montant }}
+{% endblock  %}
+
+{% block balance %}
+{{ total_depense }}
+{% endblock  %}
+
+{% block solde %}
+{{ solde }}
+{% endblock  %}
+
+{% comment %} Content {% endcomment %}
+{% block content %}
+<div class="table-data">
+    <div class="order">
+        <div class="container mt-5">
+            <h2 class="majuscule">saisie des transactions</h2>
+            <form action="comptaSaisie" method="post">
+              {% csrf_token %}
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="rubrique" class="form-label">Nom de la rubrique</label>
+                  <input type="text" class="form-control" id="rubrique" name="rubrique" required>
+                </div>
+                <div class="col">
+                  <label for="ligneBudgetaire" class="form-label">Ligne budgétaire</label>
+                  <input type="text" class="form-control" id="ligneBudgetaire" name="ligne" required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="montant" class="form-label">Montant</label>
+                  <input type="number" class="form-control" id="montant" name="montant" required>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="montant" class="form-label">Observation</label>
+                  <textarea class="form-control" id="obs" name="obs" required></textarea>
+                </div>
+              </div>
+              {% if error_message %}
+                <p style="color: red; margin-left: 30%;">{{ error_message }}</p>
+            {% endif %}
+              <div style="text-align: center;">
+                <button type="submit" class="btn btn-success" style="width: 30%;" id="ajoute">Ajouter</button>
+              </div>
+            </form>
+          </div>
+
+
+          <!-- Tableau -->
+          <div class="container mt-5">
+            <h2 class="majuscule">tableau des budgets</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Rubrique</th>
+                  <th scope="col">Ligne budgétaire</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Heure</th>
+                  <th scope="col">Montant</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for depense in affichedepense %}
+                <tr>
+                  <td>{{depense.rubrique}}</td>
+                  <td>{{depense.ligne}}</td>
+                  <td>{{depense.date}}</td>
+                  <td>{{depense.times}}</td>
+                  <td>{{depense.montant}} MGA</td>
+                </form>
+                </tr>
+                {% endfor %}
+                <!-- Ajoutez d'autres lignes dynamiquement ici -->
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>			
+{% endblock  %}

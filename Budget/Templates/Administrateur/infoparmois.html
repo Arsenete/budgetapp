@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/bootstrap.min.css'%}">
+</head>
+<body>
+  <div class="container mt-3">
+    <div class="card-body">
+      <a href="{% url "adminStatistique" %}" class="btn btn-success">Retour dans le statistique</a>
+      <h2 class="majuscule">Dépenses pour {{mois}}</h2>
+      <div class="table-responsive">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Rubrique</th>
+                      <th>Ligne</th>
+                      <th>Date</th>
+                      <th>Heure</th>
+                      <th>Montant</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for depense in depenses %}
+                  <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ depense.rubrique }}</td>
+                      <td>{{ depense.ligne }} </td>
+                      <td>{{ depense.date }}</td>
+                      <td>{{ depense.times }}</td>
+                      <td>{{ depense.montant }} MGA</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                      <td colspan="4">Aucune dépense pour ce mois.</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+      <script src="{% static 'assets/bootstrap/bootstrap.min.js'%}"></script>
+</body>
+</html>
